@@ -1,2 +1,6 @@
 def start():
-    print("def8")
+    """Start function
+    :params -
+    :return - print test
+    """
+    print("test")
