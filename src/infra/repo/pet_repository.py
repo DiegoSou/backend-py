@@ -5,8 +5,9 @@ from src.domain.models import Pets
 from src.infra.config import DBConnectionHandler
 from src.infra.entities import Pets as PetsModel
 
+
 class PetRepository:
-    """ Manage Pet repository """
+    """Manage Pet repository"""
 
     @classmethod
     def insert_pet(cls, name: str, specie: str, age: int, user_id: int) -> Pets:
@@ -30,7 +31,7 @@ class PetRepository:
                     name=new_pet.name,
                     specie=new_pet.specie.value,
                     age=new_pet.age,
-                    user_id=new_pet.user_id
+                    user_id=new_pet.user_id,
                 )
 
             except:
@@ -40,11 +41,13 @@ class PetRepository:
                 db_connection.session.close()
 
         return None
-    
+
     @classmethod
-    def select_pet(cls, pet_id: int = None, user_id: int = None , name: str = None) -> List[Pets]:
+    def select_pet(
+        cls, pet_id: int = None, user_id: int = None, name: str = None
+    ) -> List[Pets]:
         """
-        Select in PetsEntity entity by id, user id or name  
+        Select in PetsEntity entity by id, user id or name
         :params - pet_id: Id of the pet registry
                 - user_id: Id of the owner
                 - name: Name of the pet registry
@@ -73,7 +76,7 @@ class PetRepository:
                         .all()
                     )
                     query_data = data
-                
+
             elif not pet_id and not user_id and name:
                 # pet by name
                 with DBConnectionHandler() as db_connection:
