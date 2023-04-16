@@ -10,6 +10,7 @@ class DBConnectionHandler:
         """Construtor
         :attr - __connection_string: uma string de conexão que o sql alchemy vai requerir e vai fazer o acesso ao banco
         """
+
         self.__connection_string = "sqlite:///storage.db"
         self.session = None
 
@@ -18,6 +19,7 @@ class DBConnectionHandler:
         :params - None
         :return - engine connection to database
         """
+
         engine = create_engine(self.__connection_string)
         return engine
 

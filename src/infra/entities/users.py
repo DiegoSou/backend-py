@@ -16,3 +16,13 @@ class Users(Base):
 
     def __repr__(self):
         return f"Usr [name={self.name}]"
+
+    def __eq__(self, other):
+        if (
+            self.id == other.id
+            and self.name == other.name
+            and self.password == other.password
+        ):
+            return True
+
+        return False
