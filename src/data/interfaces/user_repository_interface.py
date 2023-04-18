@@ -1,3 +1,5 @@
+# pylint: disable=W0719
+
 # para criar uma interface usa métodos abstratos
 from abc import ABC, abstractmethod
 from typing import List
@@ -6,7 +8,7 @@ from src.domain.models import Users
 
 # classe abstrata -> nunca pode ser instanciada, somente herdada
 class UserRepositoryInterface(ABC):
-    """Interface pet repository"""
+    """Interface user repository"""
 
     # método abstrato -> sempre deve ser implementado por quem herda
     @abstractmethod
