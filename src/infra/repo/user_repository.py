@@ -1,3 +1,5 @@
+# pylint:disable=W0221
+
 from typing import List
 from src.data.interfaces import UserRepositoryInterface
 from src.domain.models import Users
@@ -34,7 +36,7 @@ class UserRepository(UserRepositoryInterface):
         return None
 
     @classmethod
-    def delete_user(cls, user_id: int = None) -> Users:
+    def delete_user(cls, user_id: int) -> Users:
         """delete user data
         :params - user_id: the id of user record
         :return - user record deleted
