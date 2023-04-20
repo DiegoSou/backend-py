@@ -1,5 +1,3 @@
-# pylint: disable=W0719
-
 from abc import ABC, abstractclassmethod
 from typing import Dict
 from src.domain.models import Users
