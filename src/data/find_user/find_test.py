@@ -2,6 +2,8 @@ from faker import Faker
 from src.infra.test import UserRepositorySpy
 from .find import FindUser
 
+# o método não pretende testar a funcionalidade de select, uma vez que ela já foi testada no repository_test
+# dessa forma, o método pretende testar os agentes de validação, que impedem/permitem a seleção correta do nosso modelo
 faker = Faker()
 
 
