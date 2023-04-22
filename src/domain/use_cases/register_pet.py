@@ -8,7 +8,7 @@ class RegisterPet(ABC):
 
     @abstractmethod
     def register(
-        self, name: str, specie: str, user_information: Dict[int, str], age: int = 0
+        self, name: str, specie: str, user_information: Dict[str, str], age: int = 0
     ) -> Dict[bool, Pets]:
         """use case"""
 
