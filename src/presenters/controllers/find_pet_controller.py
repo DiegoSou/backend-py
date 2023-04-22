@@ -1,17 +1,17 @@
 from typing import Type
-from src.domain.use_cases import FindUser as FindUserInterface
+from src.domain.use_cases import FindPet as FindPetInterface
 from src.presenters.helpers import HttpRequest, HttpResponse
 from src.presenters.errors import HttpErrors
 
 
-class FindUserController:
-    """Define controller to find_user use case"""
+class FindPetController:
+    """Define controller to find_pet use case"""
 
-    def __init__(self, find_user_use_case: Type[FindUserInterface]):
-        self.find_user_use_case = find_user_use_case
+    def __init__(self, find_pet_use_case: Type[FindPetInterface]):
+        self.find_pet_use_case = find_pet_use_case
 
     def handle(self, http_request: Type[HttpRequest]) -> HttpResponse:
-        """call find user use case - get"""
+        """call to find pet use case - get"""
 
         response = None
 
@@ -22,23 +22,28 @@ class FindUserController:
                 http_request.query.keys()
             )  # the adapters will ensure this as a dictionary
 
-            if "user_id" in query_string_params and "name" in query_string_params:
+            if "pet_id" in query_string_params:
+                pet_id = http_request.query["pet_id"]
+
+                response = self.find_pet_use_case.by_pet_id(pet_id=pet_id)
+
+            elif "user_id" in query_string_params and "name" in query_string_params:
                 user_id = http_request.query["user_id"]
                 name = http_request.query["name"]
 
-                response = self.find_user_use_case.by_id_and_name(
+                response = self.find_pet_use_case.by_user_id_and_name(
                     user_id=user_id, name=name
                 )
 
-            elif "user_id" in query_string_params and "name" not in query_string_params:
+            elif "user_id" in query_string_params:
                 user_id = http_request.query["user_id"]
 
-                response = self.find_user_use_case.by_id(user_id=user_id)
+                response = self.find_pet_use_case.by_user_id(user_id=user_id)
 
-            elif "name" in query_string_params and "user_id" not in query_string_params:
+            elif "name" in query_string_params:
                 name = http_request.query["name"]
 
-                response = self.find_user_use_case.by_name(name=name)
+                response = self.find_pet_use_case.by_name(name=name)
 
             else:
                 response = {"Success": False, "Data": None}
@@ -53,7 +58,7 @@ class FindUserController:
 
             return HttpResponse(status_code=200, body=response["Data"])
 
-        # If no query in http request - bad request
+        # If no query - bad request
         http_error = HttpErrors.error_400()
         return HttpResponse(
             status_code=http_error["status_code"], body=http_error["body"]
