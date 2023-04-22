@@ -8,8 +8,8 @@ faker = Faker()
 
 
 # Testa entrada (HttpRequest) e Testa saída (HttpResponse)
-def test_handle():
-    """Handle method"""
+def test_route():
+    """route method"""
 
     find_user_use_case = FindUserSpy(UserRepositorySpy())
     find_user_controller = FindUserController(find_user_use_case)
@@ -18,7 +18,7 @@ def test_handle():
         query={"user_id": faker.random_number(digits=2), "name": faker.word()}
     )
 
-    response = find_user_controller.handle(http_request)
+    response = find_user_controller.route(http_request)
 
     # Testing inputs
     print(response)
@@ -36,15 +36,15 @@ def test_handle():
     assert response.body
 
 
-def test_handle_fail_bad_request():
-    """Fail Handle method"""
+def test_route_fail_bad_request():
+    """Fail route method"""
 
     find_user_use_case = FindUserSpy(UserRepositorySpy())
     find_user_controller = FindUserController(find_user_use_case)
 
     http_request = HttpRequest()
 
-    response = find_user_controller.handle(http_request)
+    response = find_user_controller.route(http_request)
 
     # Testing inputs
     print(response)
@@ -57,15 +57,15 @@ def test_handle_fail_bad_request():
     assert response.body["error"]
 
 
-def test_handle_fail_unprocessable_entry():
-    """Fail Handle method"""
+def test_route_fail_unprocessable_entry():
+    """Fail route method"""
 
     find_user_use_case = FindUserSpy(UserRepositorySpy())
     find_user_controller = FindUserController(find_user_use_case)
 
     http_request = HttpRequest(query={"user_id": faker.word()})
 
-    response = find_user_controller.handle(http_request)
+    response = find_user_controller.route(http_request)
 
     # Testing inputs
     print(response)

@@ -9,8 +9,8 @@ from .register_pet_controller import RegisterPetController
 faker = Faker()
 
 
-def test_handle():
-    """Test handle method"""
+def test_route():
+    """Test route method"""
 
     # mocks
     register_pet_use_case = RegisterPetSpy(
@@ -30,7 +30,7 @@ def test_handle():
         },
     }
 
-    response = register_pet_controller.handle(http_request=HttpRequest(body=attributes))
+    response = register_pet_controller.route(http_request=HttpRequest(body=attributes))
 
     # Test inputs
     print(response)
@@ -47,8 +47,8 @@ def test_handle():
     assert response.body
 
 
-def test_handle_fail_bad_request():
-    """Fail handle method"""
+def test_route_fail_bad_request():
+    """Fail route method"""
 
     # mocks
     register_pet_use_case = RegisterPetSpy(
@@ -60,7 +60,7 @@ def test_handle_fail_bad_request():
     # define entries
     attributes = {}
 
-    response = register_pet_controller.handle(http_request=HttpRequest(body=attributes))
+    response = register_pet_controller.route(http_request=HttpRequest(body=attributes))
 
     # Test inputs
     print(response)
@@ -71,8 +71,8 @@ def test_handle_fail_bad_request():
     assert response.body["error"]
 
 
-def test_handle_fail_unprocessable_entry():
-    """Fail handle method"""
+def test_route_fail_unprocessable_entry():
+    """Fail route method"""
 
     # mocks
     register_pet_use_case = RegisterPetSpy(
@@ -84,7 +84,7 @@ def test_handle_fail_unprocessable_entry():
     # define entries
     attributes = {"name": faker.random_number(digits=2)}
 
-    response = register_pet_controller.handle(http_request=HttpRequest(body=attributes))
+    response = register_pet_controller.route(http_request=HttpRequest(body=attributes))
 
     # Test inputs
     print(response)

@@ -9,8 +9,8 @@ faker = Faker()
 
 
 # Testa Entrada (http_request) e Testa Saída (http_response)
-def test_handle():
-    """Handle method"""
+def test_route():
+    """route method"""
 
     find_pet_use_case = FindPetSpy(pet_repository=PetRepositorySpy())
     find_pet_controller = FindPetController(find_pet_use_case)
@@ -19,7 +19,7 @@ def test_handle():
         query={"user_id": faker.random_number(digits=5), "name": faker.word()}
     )
 
-    response = find_pet_controller.handle(http_request)
+    response = find_pet_controller.route(http_request)
 
     # Test inputs
     print(response)
@@ -38,15 +38,15 @@ def test_handle():
     assert response.body
 
 
-def test_handle_fail_bad_request():
-    """Fail handle method"""
+def test_route_fail_bad_request():
+    """Fail route method"""
 
     find_pet_use_case = FindPetSpy(pet_repository=PetRepositorySpy())
     find_pet_controller = FindPetController(find_pet_use_case)
 
     http_request = HttpRequest(query={})
 
-    response = find_pet_controller.handle(http_request)
+    response = find_pet_controller.route(http_request)
 
     # Test inputs
     print(response)
@@ -60,15 +60,15 @@ def test_handle_fail_bad_request():
     assert response.body["error"]
 
 
-def test_handle_fail_unprocessable_entry():
-    """Fail handle method"""
+def test_route_fail_unprocessable_entry():
+    """Fail route method"""
 
     find_pet_use_case = FindPetSpy(pet_repository=PetRepositorySpy())
     find_pet_controller = FindPetController(find_pet_use_case)
 
     http_request = HttpRequest(query={"pet_id": faker.word()})
 
-    response = find_pet_controller.handle(http_request)
+    response = find_pet_controller.route(http_request)
 
     # Test inputs
     print(response)

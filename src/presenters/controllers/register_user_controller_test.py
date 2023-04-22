@@ -8,8 +8,8 @@ from .register_user_controller import RegisterUserController
 faker = Faker()
 
 
-def test_handle():
-    """Test handle method"""
+def test_route():
+    """Test route method"""
 
     # mocks
     register_user_use_case = RegisterUserSpy(user_repository=UserRepositorySpy())
@@ -19,9 +19,7 @@ def test_handle():
     # define entries
     attributes = {"name": faker.name(), "password": faker.word()}
 
-    response = register_user_controller.handle(
-        http_request=HttpRequest(body=attributes)
-    )
+    response = register_user_controller.route(http_request=HttpRequest(body=attributes))
 
     # Test inputs
     print(response)
@@ -33,8 +31,8 @@ def test_handle():
     assert response.body
 
 
-def test_handle_fail_bad_request():
-    """Test fail handle method"""
+def test_route_fail_bad_request():
+    """Test fail route method"""
 
     # mocks
     register_user_use_case = RegisterUserSpy(user_repository=UserRepositorySpy())
@@ -44,9 +42,7 @@ def test_handle_fail_bad_request():
     # define entries
     attributes = {}
 
-    response = register_user_controller.handle(
-        http_request=HttpRequest(body=attributes)
-    )
+    response = register_user_controller.route(http_request=HttpRequest(body=attributes))
 
     # Test inputs
     print(response)
@@ -57,8 +53,8 @@ def test_handle_fail_bad_request():
     assert response.body["error"]
 
 
-def test_handle_fail_unprocessable_entry():
-    """Test handle method"""
+def test_route_fail_unprocessable_entry():
+    """Test route method"""
 
     # mocks
     register_user_use_case = RegisterUserSpy(user_repository=UserRepositorySpy())
@@ -68,9 +64,7 @@ def test_handle_fail_unprocessable_entry():
     # define entries
     attributes = {"name": faker.random_number(digits=5), "password": faker.word()}
 
-    response = register_user_controller.handle(
-        http_request=HttpRequest(body=attributes)
-    )
+    response = register_user_controller.route(http_request=HttpRequest(body=attributes))
 
     # Test inputs
     print(response)
