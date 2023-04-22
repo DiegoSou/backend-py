@@ -1,13 +1,13 @@
 from typing import Type, Dict
 from src.domain.models import Users
 from src.domain.use_cases import RegisterUser as RegisterUserInterface
-from src.data.interfaces import UserRepositoryInterface as UserRepository
+from src.data.interfaces import UserRepositoryInterface
 
 
 class RegisterUser(RegisterUserInterface):
     """define usercase: Register User"""
 
-    def __init__(self, user_repository: Type[UserRepository]):
+    def __init__(self, user_repository: Type[UserRepositoryInterface]):
         self.user_repository = user_repository
 
     def register(self, name: str, password: str) -> Dict[bool, Users]:
