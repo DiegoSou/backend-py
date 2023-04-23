@@ -1,7 +1,7 @@
 from typing import Type, Dict, List
 from src.data.interfaces import PetRepositoryInterface
-from src.data.find_user import FindUser
 from src.domain.models import Pets, Users
+from src.domain.use_cases import FindUser as FindUserInterface
 from src.domain.use_cases import RegisterPet as RegisterPetInterface
 
 
@@ -9,7 +9,9 @@ class RegisterPet(RegisterPetInterface):
     """define use case: Register Pet"""
 
     def __init__(
-        self, pet_repository: Type[PetRepositoryInterface], find_user: Type[FindUser]
+        self,
+        pet_repository: Type[PetRepositoryInterface],
+        find_user: Type[FindUserInterface],
     ):
         self.pet_repository = pet_repository
         self.find_user = find_user
