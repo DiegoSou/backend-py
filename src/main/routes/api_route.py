@@ -14,33 +14,20 @@ def register_user():
     message = {}
     response = flask_adapter(request=request, api_route=register_user_composer())
 
-    # pass error codes
+    # success codes
     if response.status_code < 300:
         message = {
-            "Type": "users",
-            "id": response.body.id,
             "attributes": {"name": response.body.name},
+            "id": response.body.id,
+            "type": "users",
         }
 
         return jsonify({"data": message}), response.status_code
 
+    # error codes
     return (
         jsonify(
             {"error": {"status": response.status_code, "title": response.body["error"]}}
         ),
         response.status_code,
     )
-
-
-#
-# @api_routes_blueprint.route("/api", methods=["GET"])
-# def get_dict_params():
-#     """teste"""
-#
-#     return jsonify({"query_params" : request.args.to_dict()})
-#
-# @api_routes_blueprint.route("/api", methods=["GET"])
-# def something():
-#     """teste"""
-#
-#     return jsonify({"greetings": "Olá Mundo"})
